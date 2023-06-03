@@ -5,7 +5,7 @@ class Service {
         this.logger = con.logger
         this.orgRepo = con.orgRepo
         this.Timestamp = con.Timestamp
-        this.apiError = con.apiError
+        this.httpError = con.httpError
     }
 
     async getSetting(type, orgCode) {
@@ -13,11 +13,11 @@ class Service {
             const result = await this.orgRepo().getSetting(type, orgCode)
             if (result === false) {
                 this.logger().errorLog('orgService', 'getSettings', `setting for ${orgCode} does not exist`)
-                return this.apiError().notFound(404, `setting for ${orgCode} does not exist`)
+                return this.httpError().notFound(404, `setting for ${orgCode} does not exist`)
             }
             if (result[0] == null) {
                 this.logger().errorLog('orgService', 'getSettings', `${type} for ${orgCode} does not exist`)
-                return this.apiError().notFound(404, `${type} for ${orgCode} does not exist`)
+                return this.httpError().notFound(404, `${type} for ${orgCode} does not exist`)
             }
             this.logger().infoLog('orgService', 'getSettings', `success: fetched ${type} for ${orgCode} `)
             return result[0]
@@ -40,7 +40,7 @@ class Service {
                 return result
             }
             this.logger().errorLog('orgService', 'addNewOrg', 'error: orgName already exist!')
-            return this.apiError().badRequest(400, 'organization name already exist.')
+            return this.httpError().badRequest(400, 'organization name already exist.')
         } catch (e) {
             this.logger().errorLog('orgService', 'addNewOrg', e.message)
             throw new Error(e.message)

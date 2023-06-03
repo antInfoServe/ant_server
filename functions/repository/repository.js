@@ -4,7 +4,6 @@ class Repository {
     constructor(con) {
         this.db = con.db
         this.logger = con.logger
-        this.apiError = con.apiError
     }
 
     async getSetting(type, orgCode) {

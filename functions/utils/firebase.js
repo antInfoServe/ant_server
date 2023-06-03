@@ -1,11 +1,10 @@
 const { initializeApp, cert } = require('firebase-admin/app');
 const {getAuth} = require('firebase-admin/auth')
-const {getFirestore, Timestamp} = require('firebase-admin/firestore')
-const serviceAccountKeys = require('../dezinstudio-2ad1d-firebase-adminsdk-vmfy8-2828c3052b.json')
+const {getFirestore, Timestamp, FieldValue} = require('firebase-admin/firestore')
+const serviceAccountKeys = require('../joyboy-ai-firebase-adminsdk-a75r4-0a8645d28c.json')
 
 const app = initializeApp({
     credential: cert(serviceAccountKeys),
-    databaseURL:"https://dezinstudio-2ad1d.firebaseio.com"
 })
 
 
@@ -13,5 +12,6 @@ const app = initializeApp({
 module.exports={
     getAuth: getAuth(app),
     db: getFirestore(),
-    Timestamp
+    Timestamp, 
+    FieldValue
 }

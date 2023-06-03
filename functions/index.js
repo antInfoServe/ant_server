@@ -26,6 +26,10 @@ app.use(cors({
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 
+//use routes here
+
+app.use(express.json())
+
 app.use((err, req, res, next) => {
   const arr = [400, 401, 402, 403, 404, 405, 406]
   if (arr.includes(err.code)) {
@@ -36,4 +40,4 @@ app.use((err, req, res, next) => {
 })
 
 //exports the api to the firebase functions
-exports.app = functions.region('asia-south1').https.onRequest(app)
+exports.app = functions.runWith({memory:'256MB', timeoutSeconds:120}).region('asia-south1').https.onRequest(app)
